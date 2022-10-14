@@ -79,8 +79,8 @@ int main() {
 		},
 		{ "В основе какого метода сортировки лежит обмен соседних элементов массива",
 			{
-				{"Сортировка пузырьком", false},
-				{"Сортировка выборкой", true},
+				{"Сортировка пузырьком", true},
+				{"Сортировка выборкой", false},
 				{"Бинарный сортировка", false},
 				{"Сортировка слиянием", false}
 			}
@@ -98,7 +98,7 @@ int main() {
 				{"Интерпритируемый", false},
 				{"Магический", false},
 				{"Компилируемый", true},
-				{"Убийственный", false}
+				{"Убийственный", true}
 			}
 		},
 		{ "Кто изобрел интернет",
@@ -111,28 +111,28 @@ int main() {
 		},
 		{ "Основатель Microsoft",
 			{
-				{"Билл Гейтс", false},
-				{"Стив Джобс", true},
+				{"Билл Гейтс", true},
+				{"Стив Джобс", false},
 				{"Леонардо Да Винчи", false},
 				{"Абракадабра", false}
 			}
 		}
 	};
 
-	cout << arr_q[0].answers[1].answ;
 
 	string name_player = "Vasya";
 	bool check = true;
 	int count_quations = 8;
-	string color = "\x1b[91m";
+	string color = "\x1b[93m";
 
 
 
 
-	cout << color;
+	
 	//приветствие
 
 	while (check) {
+		cout << color;
 		cout << "Приветствую " << name_player << ". Викторина с вопросами по программированию и сферой IT." << endl;
 		int key_input;
 		cout << "[1] - Начать игру" << endl
@@ -147,40 +147,59 @@ int main() {
 		if (key_input == 49) {
 			int lives = 3;
 			int coin = 0;
+			bool in_game = true;
 
-			
+			system("cls");
 			//Вывод ответов
-			for (int i = 0; i < count_quations; i++) {
+			for (int i = 0; i < count_quations && in_game==true; i++) {
 				cout << "[+] Игрок: " << name_player << " | жизни: " << lives
 					<< " | очки: " << coin << endl;
 				cout << "[" << i << "]" << "Вопрос: " << arr_q[i].text << endl;
 				for (int j = 0; j < 4; j++) {
-					cout << "[" << 'A'+j << "]" << arr_q[i].answers[j].answ << endl;
+					cout << "[" << char('A' + j) << "]" << arr_q[i].answers[j].answ << endl;
 				}
 
 				cout << "[+]Выбрать ответ: ";
 				key_input = _getch();
-				
+
 				// Проверка ответов
-				for (int j = 0; j < 4; j++) {
-					if (key_input == 65 + j) {
-						if (arr_q[i].answers[j].o) {
-							coin += 1;
-							cout << "Ответ верный! + 1 очко" << endl;
+				bool stoper = true;
+				while (stoper) {
+					if (key_input == 65 || key_input == 66 || key_input == 67 || key_input == 68) {
+						for (int j = 0; j < 4; j++) {
+							if (key_input == 65 + j) {
+								if (arr_q[i].answers[j].o) {
+									coin += 1;
+									cout << "Ответ верный! + 1 очко" << endl;
+								}
+								else {
+									lives -= 1;
+									cout << "Ответ неверный! - 1 жизнь" << endl;
+									if (lives == 0) {
+										system("cls");
+										cout << "Игра окончена" << endl;
+										in_game = false;
+										break;
+									}
+								}
+							}
 						}
-						else {
-							lives -= 1;
-							cout << "Ответ неверный! - 1 жизнь" << endl;
-						}
+						stoper = false;
 					}
+					if (stoper) {
+						key_input = _getch();
+					}
+					
 				}
+				
 				system("pause");
 				system("cls");
-				if (lives == 0) {
-					cout << "Игра окончена" << endl;
-					break;
-				}
+				
 
+			}
+			if (in_game) {
+				cout << "Ты выиграл! У тебя осталось " << lives << " жизней и " << coin << " очкОв" << endl;
+				system("pause");
 			}
 
 
@@ -189,12 +208,13 @@ int main() {
 		//Настройки
 		else if (key_input == 50) {
 			cout << "[1] Редактирование имя игрока;" << endl
-				<< "[2]Редактирование вопросов в игре.Можно изменить на 8 - 10 - 12." << endl
-				<< "[3]Редактирование цвет интерфейса" << endl;
+				<< "[2] Редактирование вопросов в игре.Можно изменить на 8 - 10 - 12." << endl
+				<< "[3] Редактирование цвет интерфейса" << endl
+				<< "[4] Назад" << endl;
 
 			//считывание нажатия
 			key_input = _getch();
-
+			system("cls");
 			//изменить имя игрока
 			if (key_input == 49) {
 				cout << "Введите новое имя игрока: ";
@@ -222,7 +242,27 @@ int main() {
 
 			//редактирование цвета интерфейса
 			else if (key_input == 51) {
-				cout << "Выберите цвет: " << endl;
+				cout << "Выберите цвет: " << endl
+					<< "[1] Белый" << endl
+					<< "[2] Красный" << endl
+					<< "[3] Зеленый" << endl
+					<< "[4] Синий" << endl;
+				key_input = _getch();
+				if (key_input == 49) {
+					color = "\x1b[93m";
+				}
+				else if (key_input == 50) {
+					color = "\x1b[91m";
+				}
+				else if (key_input == 51) {
+					color = "\x1b[92m";
+				}
+				else if (key_input == 52) {
+					color = "\x1b[94m";
+				}
+			}
+			else if (key_input == 52) {
+				system("cls");
 			}
 		}
 
@@ -231,6 +271,7 @@ int main() {
 			cout << "- Игрок получает очки за правильный ответ на вопрос;" << endl
 				<< "- Игрок проходит дальше за правильный ответ;" << endl
 				<< "- Игрок теряет жизнь при неправильном ответе." << endl;
+			system("pause");
 		}
 
 		//Выход
