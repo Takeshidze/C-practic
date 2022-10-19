@@ -10,13 +10,16 @@ int main()
         int figure;
 
         cout << "[+]Программа - ""Геометрические фигуры""" << endl << endl;
-        cout << "[1]Линия" << endl << endl;
+        cout << "[1]Линия" << endl
+            << "[2]Квадрат" << endl
+            << "[3]Прямоугольник" << endl << endl;
         cout << "[+]Выберите фигуру: ";
         cin >> figure;
-
+        int type;
+        string texture;
         if (figure == 1) {
-            int type, lenght;
-            string texture;
+            int lenght;
+            
             cout << "Фигура ""Линия""" << endl << endl;
             cout << "[1]Горизонтальная" << endl
                 << "[2]Вертикальная" << endl << endl;
@@ -26,6 +29,7 @@ int main()
             cout << "[+]Длина линии: ";
             cin >> lenght;
             cout << endl;
+        
             cout << "[+]Текстура линии: ";
             cin >> texture;
             cout << endl;
@@ -41,6 +45,63 @@ int main()
                 }
             }
         }
+        else if (figure == 2) {
+            int size;
+            cout << "Фигура ""Квадрат""" << endl << endl;
+            cout << "[1]Заполненый" << endl
+                << "[2]Пустой" << endl << endl;
+            cout << "[+]Выберите тип: ";
+            cin >> type;
+            cout << endl;
+
+            cout << "[+]Размер: ";
+            cin >> size;
+            cout << endl;
+
+            cout << "[+]Текстура линии: ";
+            cin >> texture;
+            cout << endl;
+
+            if (type == 1) {
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        cout << texture;
+                    }
+                    cout << endl;
+                }
+            }
+            else if (type == 2) {
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        if (i == 0 || j == 0 || i == size - 1 || j == size - 1) {
+                            cout << texture;
+                        }
+                        else cout << " ";
+                    }
+                    cout << endl;
+                }
+            }
+        }
+        else if (figure == 3) {
+            int lenght,weight;
+            cout << "Фигура ""Квадрат""" << endl << endl;
+            cout << "[1]Заполненый" << endl
+                << "[2]Пустой" << endl << endl;
+            cout << "[+]Выберите тип: ";
+            cin >> type;
+            cout << endl;
+
+            cout << "[+]Ширина: ";
+            cin >> weight;
+            cout << "[+]Высота: ";
+            cin >> lenght;
+            cout << endl;
+
+
+            cout << "[+]Текстура линии: ";
+            cin >> texture;
+            cout << endl;
+        }
         system("pause");
         cout << "endl";
         system("cls");
@@ -49,4 +110,3 @@ int main()
 
     return 0;
 }
-
