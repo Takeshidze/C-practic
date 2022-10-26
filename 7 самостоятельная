@@ -2,35 +2,48 @@
 using namespace std;
 
 
+//int print_four_squars(string figure) {
+//    int type;
+//
+//    cout << "Фигура \"" << figure << "\"" << endl << endl;
+//    cout << "[1]Заполненый" << endl
+//        << "[2]Пустой" << endl << endl;
+//    cout << "[+]Выберите тип: ";
+//    cin >> type;
+//    cout << endl;
+//    return type;
+//}
+
+
+
+
 int main()
 {
-    if (true) {
-        int abc = 0;
-    }
-
-    cout << abc;
-
 
     setlocale(0, "");
+
+
     while (true)
     {
         int figure;
         
         cout << "[+]Программа - ""Геометрические фигуры""" << endl << endl;
-        cout << "[1]Линия" << endl << endl;
-        cout << "[1]Линия" << endl
+        cout << "[1]Линия" << endl 
             << "[2]Квадрат" << endl
-            << "[3]Прямоугольник" << endl << endl;
+            << "[3]Прямоугольник" << endl
+            << "[4]Треугольник" << endl
+            << "[5]Решетка" << endl << endl;
         cout << "[+]Выберите фигуру: ";
         cin >> figure;
 
         string texture;
         int type;
+        int size;
         switch (figure) {
         // Линия
         case 1:
             // Объявление переменных
-            int type, lenght;
+            int type;
 
             // Вывод меню и настроек
             cout << "Фигура ""Линия""" << endl << endl;
@@ -40,7 +53,7 @@ int main()
             cin >> type;
             cout << endl;
             cout << "[+]Длина линии: ";
-            cin >> lenght;
+            cin >> size;
             cout << endl;
             cout << "[+]Текстура линии: ";
             cin >> texture;
@@ -51,13 +64,13 @@ int main()
             switch (type)
             {
             case 1:
-                for (int i = 0; i < lenght; i++) {
+                for (int i = 0; i < size; i++) {
                     cout << texture;
                 }
                 break;
 
             case 2:
-                for (int i = 0; i < lenght; i++) {
+                for (int i = 0; i < size; i++) {
                     cout << texture << endl;
                 }
                 break;
@@ -71,8 +84,7 @@ int main()
         // Квадрат
         case 2:
             // Объявление переменных
-            int size;
-
+            
             // Вывод меню и настроек
             cout << "Фигура \"Квадрат\"" << endl << endl;
             cout << "[1]Заполненый" << endl
@@ -118,7 +130,7 @@ int main()
                 break;
             }
             // Конец вывода результата
-            break;
+            
         
         // Прямоугольник
         case 3:
@@ -149,8 +161,8 @@ int main()
             switch (type)
             {
             case 1:
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < size; j++) {
+                for (int i = 0; i < lenght; i++) {
+                    for (int j = 0; j < weight; j++) {
                         cout << texture;
                     }
                     cout << endl;
@@ -158,9 +170,9 @@ int main()
                 break;
 
             case 2:
-                for (int i = 0; i < size; i++) {
-                    for (int j = 0; j < size; j++) {
-                        if (i == 0 || j == 0 || i == size - 1 || j == size - 1) {
+                for (int i = 0; i < lenght; i++) {
+                    for (int j = 0; j < weight; j++) {
+                        if (i == 0 || j == 0 || i == lenght - 1 || j == weight - 1) {
                             cout << texture;
                         }
                         else cout << " ";
@@ -173,13 +185,121 @@ int main()
                 break;
             }
             // Конец вывода результата
-            break;
+            
+
 
         case 4:
+            // Объявление переменных
 
+            // Вывод меню и настроек
+            cout << "Фигура \"Треугольник\"" << endl << endl;
+            cout << "[1]Заполненый" << endl
+                << "[2]Пустой" << endl << endl;
+            cout << "[+]Выберите тип: ";
+            cin >> type;
+            cout << endl;
+
+            cout << "[+]Высота: ";
+            cin >> size;
+
+
+            cout << "[+]Текстура линии: ";
+            cin >> texture;
+            cout << endl;
+            // Конец вывода меню и настроек
+
+            // Вывод результата
+            switch (type)
+            {
+            case 1:
+                for (int i = 0; i < size; i += 2) {
+                    for (int j = 0; j < size; j++) {
+                        if ((j * 2 <= size && (size - i) / 2 <= j) ||
+                            (j * 2 >= size && i >= j * 2 - size)) {
+                            cout << texture;
+                        }
+                        else cout << ".";
+                    }
+                    cout << endl;
+                }
+                break;
+
+            case 2:
+                for (int i = 1; i <= size; i++) {
+                    for (int j = 1; j <= size * 2; j++) {
+                        if (j == ((size + 1) - (i - 1)) || j == ((size + 1) + (i - 1))) {
+                            cout << '*';
+                        }
+                        else {
+                            if (i == size && j > 1) {
+                                cout << '*';
+                            }
+                            else cout << ' ';
+                        }
+                            
+                    }
+
+                    cout << endl;
+                }
+                break;
+
+            default:
+                break;
+            }
+            // Конец вывода результата
+        case 5: 
+            // Объявление переменных
+
+            // Вывод меню и настроек
+            cout << "Фигура \"Решетка\"" << endl << endl;
+            
+
+            cout << "[+]Высота: ";
+            cin >> size;
+
+
+            cout << "[+]Текстура линии: ";
+            cin >> texture;
+            cout << endl;
+            // Конец вывода меню и настроек
+
+            for (int i = 1; i <= size; i++) {
+                for (int j = 1; j <= size; j++) {
+                    if ((j % 2 == 0) || i % 2 == 0) {
+                        cout << texture;
+                    }
+                    else cout << ".";
+                }
+                cout << endl;
+            }
             break;
 
+        
+        case 6: 
+            // Объявление переменных
 
+           // Вывод меню и настроек
+            cout << "Фигура \"Крестик\"" << endl << endl;
+
+
+            cout << "[+]Высота: ";
+            cin >> size;
+
+
+            cout << "[+]Текстура линии: ";
+            cin >> texture;
+            cout << endl;
+
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (j == i || j == size - i - 1) {
+                        cout << texture;
+                    }
+                    else cout << ".";
+                }
+                cout << endl;
+            }
         }
 
 
