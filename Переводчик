@@ -1,0 +1,31 @@
+#include <iostream>
+#include <map>
+using namespace std;
+
+
+int main()
+{
+    setlocale(0, "");
+    
+    map <string, string> traslator = 
+    {
+        {"Дом", "Home"},
+        {"Дом", "hop"},
+        {"Дом", "pumpkinseed"},
+        {"Фамилия", "surname"},
+        {"гореть", "burn"},
+        {"скреплять", "bonding"},
+        {"Дом", "cornerstone"},
+        {"чайник", "kettle"},
+        {"торги", "bidding"},
+        {"газон", "turf"},
+        {"Дом", "flame"},
+        {"Дом", "expense"},
+        {"Дом", "songbird"},
+        {"Дом", "waiver"},
+        {"Дом", "mobile"},
+        {"Дом", "scaffold"}
+    }
+
+    return 0;
+}
