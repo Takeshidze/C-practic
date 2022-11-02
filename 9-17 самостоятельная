@@ -35,7 +35,7 @@ int main()
     while (true)
     {
         int figure;
-        
+
         cout << "[+]Программа - ""Геометрические фигуры""" << endl << endl;
         cout << "[1]Линия" << endl
             << "[2]Квадрат" << endl
@@ -43,7 +43,8 @@ int main()
             << "[4]Треугольник" << endl
             << "[5]Решетка" << endl
             << "[6]Крестик" << endl
-            << "[7]Плюс" << endl << endl;
+            << "[7]Плюс" << endl
+            << "[8]Ромб" << endl << endl;
         cout << "[+]Выберите фигуру: ";
         cin >> figure;
 
@@ -51,7 +52,7 @@ int main()
         int type;
         int size, size2;
         switch (figure) {
-        // Линия
+            // Линия
         case 1:
             // Объявление переменных
 
@@ -88,11 +89,11 @@ int main()
             }
             // Конец вывода результата
             break;
-        
-        // Квадрат
+
+            // Квадрат
         case 2:
             // Объявление переменных
-            
+
             // Вывод меню и настроек
             type = print_four_squars("Квадрат");
 
@@ -132,8 +133,8 @@ int main()
             }
             // Конец вывода результата
             break;
-        
-        // Прямоугольник
+
+            // Прямоугольник
         case 3:
             // Объявление переменных
             int size, size2;
@@ -180,7 +181,7 @@ int main()
             // Конец вывода результата
             break;
 
-        // Треугольник
+            // Треугольник
         case 4:
             // Объявление переменных
 
@@ -198,9 +199,9 @@ int main()
             switch (type)
             {
             case 1:
-                for (int i = 0; i < size; i ++) {
-                    for (int j = 0; j < size*2-1; j++) {
-                        if (j<=size-1+i && j >= size-1 - i) {
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size * 2 - 1; j++) {
+                        if (j <= size - 1 + i && j >= size - 1 - i) {
                             cout << texture;
                         }
                         else cout << ".";
@@ -224,12 +225,14 @@ int main()
             }
             break;
             // Конец вывода результата
-        case 5: 
+
+        // Решетка
+        case 5:
             // Объявление переменных
 
             // Вывод меню и настроек
             cout << "Фигура \"Решетка\"" << endl << endl;
-            
+
 
             cout << "[+]Высота: ";
             cin >> size;
@@ -248,8 +251,8 @@ int main()
             }
             break;
 
-        
-        case 6: 
+        //Крестик
+        case 6:
             // Объявление переменных
 
            // Вывод меню и настроек
@@ -273,6 +276,7 @@ int main()
             }
             break;
         
+        //Плюс
         case 7:
             cout << "Фигура \"Плюс\"" << endl << endl;
 
@@ -284,7 +288,7 @@ int main()
 
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
-                    if (i == size/2 || j == size/2 || i == size/2 || j == size/2) {
+                    if (i == size / 2 || j == size / 2 || i == size / 2 || j == size / 2) {
                         cout << texture;
                     }
                     else cout << ".";
@@ -293,11 +297,32 @@ int main()
             }
             break;
 
+        case 8:
+            cout << "Фигура \"Ромб\"" << endl << endl;
+
+            cout << "[+]Размер: ";
+            cin >> size;
+
+            texture = get_texture();
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if (j == size/2 + i || j == size/2 - i) {
+                        cout << texture;
+                    }
+                    else if (j == i - size / 2 || j == size-1 - (i - size / 2)) {
+                        cout << texture;
+                    }
+
+                    else cout << ".";
+                }
+                cout << endl;
+            }
         }
         cout << endl;
         system("pause");
         system("cls");
-        
+
     }
 
     return 0;
