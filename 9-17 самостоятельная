@@ -44,7 +44,8 @@ int main()
             << "[5]Решетка" << endl
             << "[6]Крестик" << endl
             << "[7]Плюс" << endl
-            << "[8]Ромб" << endl << endl;
+            << "[8]Ромб" << endl
+            << "[9]Шахматная доска" << endl << endl;
         cout << "[+]Выберите фигуру: ";
         cin >> figure;
 
@@ -236,7 +237,9 @@ int main()
 
             cout << "[+]Высота: ";
             cin >> size;
-
+            if (size % 2 == 0) {
+                size++;
+            }
             texture = get_texture();
             // Конец вывода меню и настроек
 
@@ -251,7 +254,7 @@ int main()
             }
             break;
 
-        //Крестик
+            //Крестик
         case 6:
             // Объявление переменных
 
@@ -275,15 +278,17 @@ int main()
                 cout << endl;
             }
             break;
-        
-        //Плюс
+
+            //Плюс
         case 7:
             cout << "Фигура \"Плюс\"" << endl << endl;
 
 
             cout << "[+]Размер: ";
             cin >> size;
-
+            if (size % 2 == 0) {
+                size++;
+            }
             texture = get_texture();
 
             for (int i = 0; i < size; i++) {
@@ -302,15 +307,17 @@ int main()
 
             cout << "[+]Размер: ";
             cin >> size;
-
+            if (size % 2 == 0) {
+                size++;
+            }
             texture = get_texture();
 
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
-                    if (j == size/2 + i || j == size/2 - i) {
+                    if (j == size / 2 + i || j == size / 2 - i) {
                         cout << texture;
                     }
-                    else if (j == i - size / 2 || j == size-1 - (i - size / 2)) {
+                    else if (j == i - size / 2 || j == size - 1 - (i - size / 2)) {
                         cout << texture;
                     }
 
@@ -318,7 +325,27 @@ int main()
                 }
                 cout << endl;
             }
+            break;
+        case 9:
+            cout << "Фигура \"Шахматная доска\"" << endl << endl;
+
+            cout << "[+]Размер: ";
+            cin >> size;
+            
+            texture = get_texture();
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+                        cout << texture;
+                    }
+                    else cout << ".";
+                }
+                cout << endl;
+            }
+            break;
         }
+
         cout << endl;
         system("pause");
         system("cls");
