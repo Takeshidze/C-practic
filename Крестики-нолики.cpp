@@ -2,6 +2,21 @@
 
 using namespace std;
 
+
+//void c_pole(int arr[][]) {
+//
+//	cout << "| " << array[i] << " |  " << array[i] << COLOR_RED << " + " << COLOR_WHITE << array[i] << "  |     " << array[i] + array[i] << "     |  " << endl
+//		<< "_______________________________" << endl
+//		<< "| " << array[i] << " |  " << array[i] << COLOR_RED << " - " << COLOR_WHITE << array[i] << "  |     " << array[i] - array[i] << "     |  " << endl
+//		<< "_______________________________" << endl
+//		<< "| " << array[i] << " |  " << array[i] << COLOR_RED << " * " << COLOR_WHITE << array[i] << "  |     " << array[i] * array[i] << "     |  " << endl
+//		<< "_______________________________" << endl
+//		<< "| " << array[i] << " |  " << array[i] << COLOR_RED << " / " << COLOR_WHITE << array[i] << "  |     " << array[i] / array[i] << "     |  " << endl
+//		<< "_______________________________" << endl;
+//}
+
+
+
 int main() {
 	setlocale(0, "");
 
@@ -18,17 +33,27 @@ int main() {
 
 	//Переменные
 
+	int arr[3][3] =
+	{
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}
+	};
 
+	char game[3][3];
 
 	string colors[5] =
 	{
 		{"\x1b[92m зеленый \x1b[0m"},
-		{"\x1b[93m красный \x1b[0m"},
-		{"\x1b[93m синий \x1b[0m"},
+		{"\x1b[95m красный \x1b[0m"},
+		{"\x1b[96m синий \x1b[0m"},
 		{"\x1b[0m белый \x1b[0m"}
 	};
-	
+
+	int motion;
+	int iter = 0;
 	int select_player, select_color;
+	bool settings_is_work = true;
 
 	struct Player
 	{
@@ -46,8 +71,66 @@ int main() {
 	switch (answer)
 	{
 
-	//игра
+		//игра
 	case 1:
+		cout << "[+] Крестики-нолики" << endl
+			<< "[1] Одиночная игра" << endl
+			<< "[2] Два игрока" << endl;
+		cin >> answer;
+
+		switch (answer)
+		{
+
+		case 1:
+			while (true)
+			{
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						if (game[i][j] == players[0].figure || game[i][j] == players[1].figure) {
+							cout << " " << game[i][j] << " |";
+						}
+						else cout << " " << arr[i][j] << " |";
+							
+					}
+					cout << endl << "------------" << endl;
+
+				}
+				cout << "[+] Ход: " << players[iter].nickname << endl;
+				cout << "Введите цифру: ";
+				cin >> motion;
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
+						if (arr[i][j] == motion) {
+							if (game[i][j] == players[0].figure || game[i][j] == players[1].figure) {
+								cout << "Поле занято";
+								system("pause");
+								break;
+							}
+							game[i][j] = players[iter].figure;
+							if (iter == 0) {
+								iter = 1;
+							}
+							else iter = 0;
+							break;
+						}
+							
+					}
+				}
+				
+				system("cls");
+			}
+
+			break;
+
+
+		case 2:
+			break;
+
+
+		default:
+			break;
+		}
+		
 
 
 		break;
@@ -55,7 +138,7 @@ int main() {
 
 
 
-	//Статистика
+		//Статистика
 	case 2:
 
 
@@ -64,10 +147,10 @@ int main() {
 
 
 
-	//Настройки
+		//Настройки
 	case 3:
-		bool settings_is_work = true;
-		while (settings_is_work){
+		
+		while (settings_is_work) {
 			//Меню настроек
 			cout << "[+]Настройки игрока" << endl
 				<< "[1] " << players[0].nickname << endl
@@ -77,7 +160,7 @@ int main() {
 			cout << "Введите команду: ";
 			cin >> select_player;
 
-			bool change_set_player = true;
+			/*bool change_set_player = true;*/
 
 			cout << "[+] Настройки игрока" << "[" << select_player << "]" << endl << endl
 				<< "[1] Ник     : " << players[select_player - 1].nickname << endl
@@ -105,28 +188,27 @@ int main() {
 
 			case 3:
 
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < 4; i++) {
 					cout << "[" << i + 1 << "] " << colors[i] << endl;
 				}
-				break;
 				cout << "Введите новый цвет: ";
 				cin >> select_color;
 				players[select_player - 1].color = colors[select_color - 1];
-
+				break;
 
 			default:
 				break;
 			}
 
-
-			break;
 		}
+			break;
 		
 
 
 
 
-	//Выйти
+
+		//Выйти
 	case 4:
 
 
