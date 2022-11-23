@@ -40,7 +40,7 @@ bool is_game_over(char game[3][3], char fg) {
 	else if (game[0][0] == fg && game[1][0] == fg && game[2][0] == fg) {
 		return true;
 	}
-	else if (game[0][1] == fg && game[2][1] == fg && game[2][1] == fg) {
+	else if (game[0][1] == fg && game[1][1] == fg && game[2][1] == fg) {
 		return true;
 	}
 	else if (game[0][2] == fg && game[1][2] == fg && game[2][2] == fg) {
@@ -79,7 +79,7 @@ int main() {
 		{7,8,9}
 	};
 
-	char game[3][3] = 
+	char game[3][3] =
 	{
 		{'-','-','-'},
 		{'-','-','-'},
@@ -101,7 +101,7 @@ int main() {
 		int color_code;
 		bool is_player;
 	};
-	
+
 	string colors[7] =
 	{
 		"Red",
@@ -112,21 +112,21 @@ int main() {
 		"Cyan",
 		"White"
 	};
-		// Коды цветов
-		//Bright Red      1  
-		//Bright Green    2  
-		//Bright Yellow   3  
-		//Bright Blue     4  
-		//Bright Magenta  5  
-		//Bright Cyan     6  
-		//Bright White    7
+	// Коды цветов
+	//Bright Red      1  
+	//Bright Green    2  
+	//Bright Yellow   3  
+	//Bright Blue     4  
+	//Bright Magenta  5  
+	//Bright Cyan     6  
+	//Bright White    7
 
 	Player players[10] =
 	{
 
 		{ "Игрок 1", 'X', 1, true},
 		{ "Игрок 2", 'O', 2, true},
-		{ "Компьютер", 'O', 3, false}
+		{ "Компьютер", '+', 3, false}
 	};
 
 	switch (answer)
@@ -148,35 +148,36 @@ int main() {
 			while (in_game)
 			{
 				// проверка пройгрыша
+				cout << "Добро пожаловать в игру!\t Информация о последнем ходе:\n";
+				for (int i = 0; i < 3; i++) {
+					cout << "\t" << "|";
+					for (int j = 0; j < 3; j++) {
+						if (game[i][j] != '-') {
+							cout << " " << game[i][j] << " |";
+						}
+						else {
+							cout << " " << (i * 3) + j + 1 << " |";
+
+						}
+					}
+					cout << endl;
+				}
+
 				for (int i = 0; i < 3; i++) {
 					if (is_game_over(game, players[i].figure)) {
 						cout << "Игрок " << players[i].nickname << " выйграл" << endl;
 						in_game = false;
+						break;
 					}
 				}
-
 				if (in_game) {
-					cout << "Добро пожаловать в игру!\t Информация о последнем ходе:\n";
-					for (int i = 0; i < 3; i++) {
-							cout << "\t" << "|";
-							for (int j = 0; j < 3; j++) {
-									if (game[i][j] != '-') {
-										cout << " " << game[i][j] << " |";
-									}
-									else {
-										cout << " " << (i*3)+j+1 << " |";
-										
-									}
-							}
-							cout << endl;
-					}
-
 					cout << "[+] Ход: " << players[iter].nickname << endl;
 					cout << "Введите цифру: ";
 					cin >> motion;
 					for (int i = 0; i < 3; i++) {
 						for (int j = 0; j < 3; j++) {
 							if (arr[i][j] == motion) {
+								// Проверяем занято ли поле
 								if (game[i][j] == players[0].figure || game[i][j] == players[1].figure) {
 									cout << "Поле занято" << endl;
 									system("pause");
@@ -198,8 +199,8 @@ int main() {
 
 					system("cls");
 				}
-				}
-				
+			}
+
 
 			break;
 
@@ -207,60 +208,67 @@ int main() {
 		case 1:
 			while (in_game)
 			{
-				if (is_game_over(game, players[0].figure)) {
-					cout << "Игрок " << players[0].nickname << " выйграл" << endl;
-					in_game = false;
-				}
-				else if (is_game_over(game, players[1].figure)) {
-					cout << "Игрок " << players[1].nickname << " выйграл" << endl;
-					in_game = false;
-				}
-				if (!is_game_over(game, players[0].figure) && !is_game_over(game, players[1].figure)) {
-					for (int i = 0; i < 3; i++) {
-						for (int j = 0; j < 3; j++) {
-							if (game[i][j] == players[0].figure || game[i][j] == players[1].figure) {
-								cout << " " << game[i][j] << " |";
-							}
-							else cout << " " << arr[i][j] << " |";
+				cout << "Добро пожаловать в игру!\t Информация о последнем ходе:\n";
+				for (int i = 0; i < 3; i++) {
+					cout << "\t" << "|";
+					for (int j = 0; j < 3; j++) {
+						if (game[i][j] != '-') {
+							cout << " " << game[i][j] << " |";
+						}
+						else {
+							cout << " " << (i * 3) + j + 1 << " |";
 
 						}
-						cout << endl << "------------" << endl;
-
 					}
-					cout << "[+] Ход: " << players[iter].nickname << endl;
-					cout << "Введите цифру: ";
-					cin >> motion;
+					cout << endl;
+				}
+
+				for (int i = 0; i < 3; i++) {
+					if (is_game_over(game, players[i].figure)) {
+						cout << "Игрок " << players[i].nickname << " выйграл" << endl;
+						in_game = false;
+						break;
+					}
+				}
+				if (in_game) {
 					if (iter == 0) {
+						cout << "[+] Ход: " << players[iter].nickname << endl;
+						cout << "Введите цифру: ";
+						cin >> motion;
 						for (int i = 0; i < 3; i++) {
 							for (int j = 0; j < 3; j++) {
 								if (arr[i][j] == motion) {
-									if (game[i][j] == players[0].figure || game[i][j] == players[1].figure) {
+									if (game[i][j] == players[0].figure && game[i][j] == players[1].figure) {
 										cout << "Поле занято" << endl;
 										system("pause");
 										break;
 									}
-									game[i][j] = players[iter].figure;
+									else game[i][j] = players[iter].figure;
 
-									//Меняем игрока 
-									if (iter == 0) {
-										iter = 1;
-									}
-									else iter = 0;
-
-									break;
 								}
 
 							}
 						}
 					}
-					else if (iter == 1) {
-						int i = rand() % 3;
-						int j = rand() % 3;
-						if (game[i][j] != players[0].figure || game[i][j] != players[1].figure) {
-							
+					else if (iter == 2) {
+						while (true)
+						{
+							int i = rand() % 3;
+							int j = rand() % 3;
+							cout << i << j << game[i][j];
+							system("pause");
+							if (game[i][j] != players[0].figure && game[i][j] != players[2].figure) {
+								game[i][j] = players[iter].figure;
+								break;
+							}
 						}
 					}
-					
+					//Меняем игрока 
+					if (iter == 0) {
+						iter = 2;
+					}
+					else iter = 0;
+
 
 					system("cls");
 				}
@@ -348,7 +356,7 @@ int main() {
 				}
 			}
 			else settings_is_work = false;
-			
+
 
 		}
 		break;
