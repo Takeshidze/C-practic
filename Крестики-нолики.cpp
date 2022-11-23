@@ -27,33 +27,53 @@ string wrap_in_color(string name, int color_code) {
 	else return "\x1b[0m";
 }
 
-bool is_game_over(char game[3][3], char fg) {
-	if (game[0][0] == fg && game[0][1] == fg && game[0][2] == fg) {
-		return true;
+struct Player
+{
+	string nickname;
+	char figure;
+	int color_code;
+	bool is_player;
+	int win;
+	int lose;
+	int draw;
+	float score;
+};
+
+
+string is_game_over(char game[3][3], struct Player pl) {
+
+
+
+	if (
+		(game[0][0] == pl.figure && game[0][1] == pl.figure && game[0][2] == pl.figure) ||
+		(game[1][0] == pl.figure && game[1][1] == pl.figure && game[1][2] == pl.figure) ||
+		(game[2][0] == pl.figure && game[2][1] == pl.figure && game[2][2] == pl.figure) ||
+		(game[0][0] == pl.figure && game[1][0] == pl.figure && game[2][0] == pl.figure) ||
+		(game[0][1] == pl.figure && game[1][1] == pl.figure && game[2][1] == pl.figure) ||
+		(game[0][2] == pl.figure && game[1][2] == pl.figure && game[2][2] == pl.figure) ||
+		(game[0][0] == pl.figure && game[1][1] == pl.figure && game[2][2] == pl.figure) ||
+		(game[0][2] == pl.figure && game[1][1] == pl.figure && game[2][0] == pl.figure)
+		) {
+		return "true";
+		}
+	else {
+		int ch = 0;
+		for (int i = 0;i < 3;i++) {
+			for (int j = 0;j < 3;j++) {
+				if (game[i][j] != '-') {
+					ch++;
+				}
+			}
+		}
+
+		if (ch == 9) {
+			return "draw";
+		}
+		else
+			return "false";
 	}
-	else if (game[1][0] == fg && game[1][1] == fg && game[1][2] == fg) {
-		return true;
 	}
-	else if (game[2][0] == fg && game[2][1] == fg && game[2][2] == fg) {
-		return true;
-	}
-	else if (game[0][0] == fg && game[1][0] == fg && game[2][0] == fg) {
-		return true;
-	}
-	else if (game[0][1] == fg && game[1][1] == fg && game[2][1] == fg) {
-		return true;
-	}
-	else if (game[0][2] == fg && game[1][2] == fg && game[2][2] == fg) {
-		return true;
-	}
-	else if (game[0][0] == fg && game[1][1] == fg && game[2][2] == fg) {
-		return true;
-	}
-	else if (game[0][2] == fg && game[1][1] == fg && game[2][0] == fg) {
-		return true;
-	}
-	else return false;
-}
+
 
 
 int main() {
@@ -94,13 +114,7 @@ int main() {
 	bool settings_is_work = true;
 	bool in_game = true;
 
-	struct Player
-	{
-		string nickname;
-		char figure;
-		int color_code;
-		bool is_player;
-	};
+
 
 	string colors[7] =
 	{
@@ -163,13 +177,34 @@ int main() {
 					cout << endl;
 				}
 
-				for (int i = 0; i < 3; i++) {
-					if (is_game_over(game, players[i].figure)) {
-						cout << "Игрок " << players[i].nickname << " выйграл" << endl;
-						in_game = false;
-						break;
-					}
+				if (is_game_over(game, players[0]) == "true") {
+					cout << "Игрок " << players[0].nickname << " выйграл" << endl;
+					players[0].win++;
+					players[0].score += 6.0;
+					players[1].lose++;
+					players[1].score -= 6.0;
+					in_game = false;
+					break;
 				}
+				else if (is_game_over(game, players[1]) == "true") {
+					cout << "Игрок " << players[0].nickname << " выйграл" << endl;
+					players[1].win++;
+					players[1].score += 6.0;
+					players[0].lose++;
+					players[0].score -= 6.0;
+					in_game = false;
+					break;
+				}
+				else if (is_game_over(game, players[0]) == "draw") {
+					cout << "Ничья" << endl;
+					players[0].draw++;
+					players[0].score -= 1.0;
+					players[1].draw++;
+					players[1].score -= 1.0;
+					in_game = false;
+					break;
+				}
+				
 				if (in_game) {
 					cout << "[+] Ход: " << players[iter].nickname << endl;
 					cout << "Введите цифру: ";
@@ -223,12 +258,32 @@ int main() {
 					cout << endl;
 				}
 
-				for (int i = 0; i < 3; i++) {
-					if (is_game_over(game, players[i].figure)) {
-						cout << "Игрок " << players[i].nickname << " выйграл" << endl;
-						in_game = false;
-						break;
-					}
+				if (is_game_over(game, players[0]) == "true") {
+					cout << "Игрок " << players[0].nickname << " выйграл" << endl;
+					players[0].win++;
+					players[0].score += 6.0;
+					players[1].lose++;
+					players[1].score -= 6.0;
+					in_game = false;
+					break;
+				}
+				else if (is_game_over(game, players[2]) == "true") {
+					cout << "Игрок " << players[0].nickname << " выйграл" << endl;
+					players[2].win++;
+					players[2].score += 6.0;
+					players[0].lose++;
+					players[0].score -= 6.0;
+					in_game = false;
+					break;
+				}
+				else if (is_game_over(game, players[0]) == "draw") {
+					cout << "Ничья" << endl;
+					players[0].draw++;
+					players[0].score -= 1.0;
+					players[2].draw++;
+					players[2].score -= 1.0;
+					in_game = false;
+					break;
 				}
 				if (in_game) {
 					if (iter == 0) {
